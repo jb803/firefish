@@ -7,18 +7,24 @@ import enum
 from firefish.case import (
     Case, FileName )
 
-class Fluid(enum.enum):
+class Fluid(enum.Enum):
     """An enumeration of commonly used fluids"""
     AIR = 0
     DIMENSIONLESS_AIR = 1
 
-def write_thermophyiscal_properties(case, fluid):
+def write_thermophysical_properties(case, fluid):
     thermo_dict = None
 
     if (fluid == Fluid.AIR):
-
-        
-    elif (fuluid == Fluid.DIMENSIONLESS_AIR):
+        thermo_dict = {
+            'thermoType' : {'type' : 'hePsiThermo', 'mixture' : 'pureMixture',
+                            'transport' : 'const', 'thermo'  : 'hConst',
+                            'equationOfState' : 'perfectGas', 'specie' : 'specie',
+                            'energy' : 'sensibleInternalEnergy'},
+            'mixture' : {'specie' : {'nMoles' : 1, 'molWeight' : 28.96},
+                        'thermodynamics' : {'Cp' : 1004.5, 'Hf' : 2.544e+06},
+                        'transport' : {'mu' : 0, 'Pr' : 1}}} 
+    elif (fluid == Fluid.DIMENSIONLESS_AIR):
         thermo_dict = {
             'thermoType' : {'type' : 'hePsiThermo', 'mixture' : 'pureMixture',
                             'transport' : 'const', 'thermo'  : 'hConst',
@@ -29,4 +35,4 @@ def write_thermophyiscal_properties(case, fluid):
                         'transport' : {'mu' : 0, 'Pr' : 1}}}
 
     with case.mutable_data_file(FileName.THERMOPHYSICAL_PROPERTIES) as d:
-        d.upate(thermo_dict)
+        d.update(thermo_dict)
