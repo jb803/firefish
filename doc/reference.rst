@@ -35,7 +35,3 @@ Kinematics
 .. automodule:: firefish.kinematics
     :members:
 
-Fluids
----------------------
-.. automodule:: firefish.fluids
-    :members:

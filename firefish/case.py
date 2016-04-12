@@ -358,9 +358,12 @@ class StandardFluid(enum.Enum):
 
     Attributes:
         AIR: generates the recommended OpenFoam thermophysicalProperties for air.
+            The dictionary produced is taken from the rhoCentralFoam shock tube
+            tutorial
         DIMENSIONLESS_AIR: generates a normalised gas whith gamma=7/5 and with
             the property that at 1 temperature unit the speed of sound is 1
-            velocity unit
+            velocity unit. The dictionary produced is taken from the rhoCentralFoam
+            wedge15Ma5 tutorial
 
     """
     AIR = 0

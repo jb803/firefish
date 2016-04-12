@@ -11,9 +11,9 @@ True
 
 import os
 from firefish.case import (
-    Case, Dimension, FileName, FileClass
+    Case, Dimension, FileName, FileClass, StandardFluid,
+    write_standard_thermophysical_properties
 )
-import firefish.fluids as fl
 
 def main(case_dir='wedge', n_iter=10):
     #Try to create new case directory
@@ -24,7 +24,7 @@ def main(case_dir='wedge', n_iter=10):
     #we generate the mes1h
     case.run_tool('blockMesh')
     #we prepare the thermophysical and turbulence properties
-    fl.write_thermophysical_properties(case, fl.Fluid.DIMENSIONLESS_AIR)
+    write_standard_thermophysical_properties(case, StandardFluid.DIMENSIONLESS_AIR)
     write_turbulence_properties(case)
     #we write fvScheme and fvSolution
     write_fv_schemes(case)

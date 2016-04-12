@@ -36,9 +36,10 @@ when we want the mesh density to vary within the block.
 
 We must also set the thermodynamic properties of the gas. In this case the properties have been chosen
 so that the gas has a ratio of specific heats of 1.4 and that, if the temperature is 1K, then the speed of sound
-is 1m/s. As this is a commonly used fluid it can be down using *firefish.fluids*. We do this via::
+is 1m/s. As this is a commonly used fluid it can be done using the *write_standard_thermophysical_properties* function in
+the *firefish.case* module. We do this via::
 
-    fl.write_thermophysical_properties(case, fl.Fluid.DIMENSIONLESS_AIR)
+    write_standard_thermophysical_properties(case, StandardFluid.DIMENSIONLESS_AIR)
 
 As this is a compressible flow we must also set the initial value of the temperatue field. Notice also that for the 
 velocity we have set a slip boundary condition on the solid walls. This is because we are using an inviscid solver. When we
