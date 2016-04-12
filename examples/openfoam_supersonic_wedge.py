@@ -13,6 +13,7 @@ import os
 from firefish.case import (
     Case, Dimension, FileName, FileClass
 )
+import firefish.fluids as fl
 
 def main(case_dir='wedge', n_iter=10):
     #Try to create new case directory
@@ -23,7 +24,7 @@ def main(case_dir='wedge', n_iter=10):
     #we generate the mes1h
     case.run_tool('blockMesh')
     #we prepare the thermophysical and turbulence properties
-    write_thermophysical_properties(case)
+    fl.write_thermophysical_properties(case, fl.Fluid.DIMENSIONLESS_AIR)
     write_turbulence_properties(case)
     #we write fvScheme and fvSolution
     write_fv_schemes(case)
@@ -135,21 +136,6 @@ def write_block_mesh_dict(case):
 
     with case.mutable_data_file(FileName.BLOCK_MESH) as d:
         d.update(block_mesh_dict)
-
-def write_thermophysical_properties(case):
-    """Sets the thermdynamic properties of the gas.
-    These are chosen such that at a temperature of 1K the speed of sound is
-    1m/s"""
-    thermo_dict = {
-        'thermoType' : {'type' : 'hePsiThermo', 'mixture' : 'pureMixture',
-                        'transport' : 'const', 'thermo'  : 'hConst',
-                        'equationOfState' : 'perfectGas', 'specie' : 'specie',
-                        'energy' : 'sensibleInternalEnergy'},
-        'mixture' : {'specie' : {'nMoles' : 1, 'molWeight' : 11640.3},
-                      'thermodynamics' : {'Cp' : 2.5, 'Hf' : 0},
-                      'transport' : {'mu' : 0, 'Pr' : 1}}}
-    with case.mutable_data_file(FileName.THERMOPHYSICAL_PROPERTIES) as d:
-        d.update(thermo_dict)
 
 def write_turbulence_properties(case):
     """Disables the turbulent solver"""
