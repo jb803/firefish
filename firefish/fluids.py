@@ -10,6 +10,7 @@ from firefish.case import (
 class Fluid(enum.Enum):
     """
     An enumeration of commonly used fluids
+
     AIR generates the recommended OpenFoam thermophysicalProperties for air.
 
     DIMENSIONLESS_AIR generates a normalised gas whith gamma=7/5 and with
@@ -25,7 +26,7 @@ def write_thermophysical_properties(case, fluid):
 
     Args:
         case (firefish.case.Case): the case in which to write the dict
-        fluid (firefish.fluids.Fluid): the fluid to ise
+        fluid (firefish.fluids.Fluid): the fluid to use
     """
 
     thermo_dict = None
